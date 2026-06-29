@@ -1,6 +1,15 @@
 import re
+import sys
 
-with open("sample_job.txt", "r", encoding = "utf-8") as file:
+
+
+if len(sys.argv) < 2:
+    print("Please provide the path to the job description file as a command-line argument.")
+    sys.exit(1)
+
+file_path = sys.argv[1]
+
+with open(file_path, "r", encoding = "utf-8") as file:
     job_description = file.read()
 
 skills = ["Python", "SQL", "Java", "Docker", "AWS", "PostgreSQL"]

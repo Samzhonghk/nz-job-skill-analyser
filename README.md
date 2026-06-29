@@ -32,4 +32,4 @@ I built this project to practise Python fundamentals, including:
 Clone the repository and run:
 
 ```bash
-python job_skill_counter.py
+python job_skill_counter.py sample_job.txt

@@ -9,8 +9,12 @@ if len(sys.argv) < 2:
 
 file_path = sys.argv[1]
 
-with open(file_path, "r", encoding = "utf-8") as file:
-    job_description = file.read()
+try:
+    with open(file_path, "r", encoding = "utf-8") as file:
+        job_description = file.read()
+except FileNotFoundError:
+    print(f"File not found: {file_path}")
+    sys.exit(1)
 
 skills = ["Python", "SQL", "Java", "Docker", "AWS", "PostgreSQL"]
 

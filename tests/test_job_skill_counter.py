@@ -1,4 +1,4 @@
-from job_skill_counter import count_skill, analyze_skill
+from job_skill_counter import count_skill, analyze_skill, output_results_to_csv
 
 def test_count_skill():
     job_description = "We use SQL and PostgreSQL."
@@ -19,3 +19,14 @@ def test_analyze_skill_returns_correct_counts():
         "SQL": 1,
         "Java": 0
     }
+
+def test_output_results_to_csv(tmp_path):
+    skill_counts = {
+        "python": 3,
+        "SQL": 1,
+    }
+
+    output_file = tmp_path / "skills.csv"
+    output_results_to_csv(output_file, skill_counts)
+    assert output_file.read_text() == "Skill,Count\npython, 3\nSQL, 1\n"
+

@@ -2,6 +2,7 @@ import re
 import sys
 
 
+
 def count_skill(job_description: str, skill: str)-> int:
     pattern = rf"\b{re.escape(skill)}\b"
     matches = re.findall(pattern, job_description, flags=re.IGNORECASE)
@@ -14,7 +15,14 @@ def analyze_skill(job_description: str, skills:list[str])-> dict[str, int]:
        result[skill]= count_skill(job_description, skill)
     return result
 
+def output_results_to_csv(output_file: str, skills: dict[str, int]):
+    with open(output_file, "w", encoding = "utf-8", newline="") as file:
+        file.write("Skill,Count\n")
+        for skill, count in skills.items():
+            file.write(f"{skill}, {count}\n")
+
 def main() -> None:
+    
     if len(sys.argv) < 2:
         print("Please provide the path to the job description file as a command-line argument.")
         sys.exit(1)
@@ -31,6 +39,7 @@ def main() -> None:
     skills = ["Python", "SQL", "Java", "Docker", "AWS", "PostgreSQL"]
 
     skill_counts = analyze_skill(job_description, skills)
+    output_results_to_csv("skills.csv", skill_counts)
 
 # for skill, count in skill_counts.items():
 #     print(f"The skills '{skill}' appears {count} in the job description.")

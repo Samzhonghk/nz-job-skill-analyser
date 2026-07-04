@@ -1,0 +1,2 @@
+We need a backend engineer with Python, SQL, FastAPI, PostgreSQL, and Docker.
+Cloud experience with AWS is useful.

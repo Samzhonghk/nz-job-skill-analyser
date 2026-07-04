@@ -1,4 +1,4 @@
-from job_skill_counter import count_skill, analyze_skill, output_results_to_csv
+from job_skill_counter import count_skill, analyze_skill, output_results_to_csv, output_multi_files_to_csv, analyze_job_files
 
 def test_count_skill():
     job_description = "We use SQL and PostgreSQL."
@@ -26,7 +26,19 @@ def test_output_results_to_csv(tmp_path):
         "SQL": 1,
     }
 
+
+
     output_file = tmp_path / "skills.csv"
     output_results_to_csv(output_file, skill_counts)
     assert output_file.read_text() == "Skill,Count\npython, 3\nSQL, 1\n"
 
+def test_ouput_results_to_csv(tmp_path):
+    job_file = tmp_path / "data_engineer.txt"
+    job_file.write_text("Python, SQL, PostgreSQL", encoding = "utf-8")
+    results = analyze_job_files(str(tmp_path), ["Python", "SQL", "PostgreSQL"])
+
+    assert results == [
+        {"file": "data_engineer.txt", "skill": "Python", "count": 1},
+        {"file": "data_engineer.txt", "skill": "SQL", "count": 1},
+        {"file": "data_engineer.txt", "skill": "PostgreSQL", "count": 1},
+    ]

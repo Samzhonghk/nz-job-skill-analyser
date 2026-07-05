@@ -1,8 +1,20 @@
 import re
 import sys
 from pathlib import Path
+import argparse
 
 skills = ["Python", "SQL", "Java", "Docker", "AWS", "PostgreSQL"]
+
+def parse_agr():
+    parse = argparse.ArgumentParser(description="Analyze job description for skills.")
+    parse.add_argument("input", help="Path to the job description file or folder containing job description files.")
+    parse.add_argument(
+        "--output",
+        default=None,
+        help="Path to the output CSV file. If not provided, defaults to 'skills.csv' for single file or 'skills_summary.csv' for multiple files.",
+        
+    )
+    return parse.parse_args()
 
 def analyze_job_files(folder_path: str, skills: list[str]) -> None:
     result_list = []
@@ -48,15 +60,22 @@ def output_multi_files_to_csv(output_file: str, results: list[dict[str, int]])->
 
 def main() -> None:
     
-    if len(sys.argv) < 2:
-        print("Please provide the path to the job description file as a command-line argument.")
-        sys.exit(1)
+    # if len(sys.argv) < 2:
+    #     print("Please provide the path to the job description file as a command-line argument.")
+    #     sys.exit(1)
 
-    input_path =  Path(sys.argv[1])
-    if input_path.is_dir():
-        results = analyze_job_files(sys.argv[1], skills)
-        output_multi_files_to_csv("skills_summary.csv", results)
-        print("Skill counts have been written to skills_summary.csv")
+    # input_path =  Path(sys.argv[1])
+
+    arg = parse_agr()
+    arg_input = Path(arg.input)
+    if arg_input.is_dir():
+        output_file = arg.output or "skills_summary.csv"
+        result = analyze_job_files(str(arg_input), skills)
+        output_multi_files_to_csv(output_file, result)
+        print(f"Skill counts have been wriiten to {output_file}")
+        # results = analyze_job_files(sys.argv[1], skills)
+        # output_multi_files_to_csv("skills_summary.csv", results)
+        # print("Skill counts have been written to skills_summary.csv")
         return
 
     file_path = sys.argv[1]

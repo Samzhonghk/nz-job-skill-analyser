@@ -78,13 +78,13 @@ def main() -> None:
         # print("Skill counts have been written to skills_summary.csv")
         return
 
-    file_path = sys.argv[1]
+    # file_path = sys.argv[1]
 
     try:
-        with open(file_path, "r", encoding = "utf-8") as file:
+        with open(arg_input, "r", encoding = "utf-8") as file:
             job_description = file.read()
     except FileNotFoundError:
-        print(f"File not found: {file_path}")
+        print(f"File not found: {arg_input}")
         sys.exit(1)
 
     

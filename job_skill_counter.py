@@ -3,7 +3,15 @@ import sys
 from pathlib import Path
 import argparse
 
-skills = ["Python", "SQL", "Java", "Docker", "AWS", "PostgreSQL"]
+
+
+def load_skills(file_path: str)-> list[str]:
+    skills = []
+    with open(file_path, "r", encoding = "utf-8") as files:
+        for file in files:
+            skill = file.strip()
+            skills.append(skill)
+    return skills
 
 def parse_agr():
     parse = argparse.ArgumentParser(description="Analyze job description for skills.")
@@ -13,6 +21,12 @@ def parse_agr():
         default=None,
         help="Path to the output CSV file. If not provided, defaults to 'skills.csv' for single file or 'skills_summary.csv' for multiple files.",
         
+    )
+
+    parse.add_argument(
+        "--skills",
+        default="skills.txt",
+        help="Path to the skills file. Defaults to 'skills.txt'.",
     )
     return parse.parse_args()
 
@@ -65,8 +79,12 @@ def main() -> None:
     #     sys.exit(1)
 
     # input_path =  Path(sys.argv[1])
-
     arg = parse_agr()
+
+    # skills = load_skills("skills.txt")
+    skills = load_skills(arg.skills)
+
+    
     arg_input = Path(arg.input)
     if arg_input.is_dir():
         output_file = arg.output or "skills_summary.csv"

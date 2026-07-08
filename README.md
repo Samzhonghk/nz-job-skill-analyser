@@ -43,3 +43,9 @@ Install dependencies:
 pip install -r requirements.txt
 
 
+## Code Quality
+
+Run lint checks:
+
+```bash
+python -m ruff check .

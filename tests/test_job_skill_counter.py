@@ -1,4 +1,4 @@
-from job_skill_counter import count_skill, analyze_skill, output_results_to_csv, output_multi_files_to_csv, analyze_job_files, load_skills
+from job_skill_counter import count_skill, analyze_skill, output_results_to_csv, output_multi_files_to_csv, analyze_job_files, load_skills, summurize_skill_counts, output_summary_to_csv
 
 def test_count_skill():
     job_description = "We use SQL and PostgreSQL."
@@ -48,3 +48,16 @@ def test_load_files(tmp_path):
     skills_file.write_text("Python\nSQL\nPostgreSQL",encoding = "utf-8")
     skills = load_skills(str(skills_file))
     assert skills == ["Python", "SQL", "PostgreSQL"]
+
+def test_summarize_skill_counts():
+    skill_counts = [
+        {"file": "a.txt", "skill": "Python", "count": 1},
+        {"file": "b.txt", "skill": "Python", "count": 2},
+        {"file": "a.txt", "skill": "SQL", "count": 1}
+    ]
+
+    result = summurize_skill_counts(skill_counts) 
+    assert result == {
+        "Python": 3,
+        "SQL": 1
+    }

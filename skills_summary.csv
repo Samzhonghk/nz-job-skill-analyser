@@ -1,19 +1,28 @@
-file name, skill, count
+file,skill,count
 backend_engineer.txt, Python, 1
 backend_engineer.txt, SQL, 1
 backend_engineer.txt, Java, 0
 backend_engineer.txt, Docker, 1
 backend_engineer.txt, AWS, 1
 backend_engineer.txt, PostgreSQL, 1
+backend_engineer.txt, FastAPI, 1
+backend_engineer.txt, React, 0
+backend_engineer.txt, Git, 0
 data_engineer.txt, Python, 1
 data_engineer.txt, SQL, 1
 data_engineer.txt, Java, 0
 data_engineer.txt, Docker, 1
 data_engineer.txt, AWS, 1
 data_engineer.txt, PostgreSQL, 1
+data_engineer.txt, FastAPI, 0
+data_engineer.txt, React, 0
+data_engineer.txt, Git, 0
 software_engineer.txt, Python, 1
 software_engineer.txt, SQL, 0
 software_engineer.txt, Java, 1
 software_engineer.txt, Docker, 1
 software_engineer.txt, AWS, 0
 software_engineer.txt, PostgreSQL, 0
+software_engineer.txt, FastAPI, 0
+software_engineer.txt, React, 1
+software_engineer.txt, Git, 1

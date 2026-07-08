@@ -3,6 +3,29 @@ import sys
 from pathlib import Path
 import argparse
 
+def summurize_skill_counts(list_of_skill_counts: list[dict[str,str|int]])->dict[str, int]:
+    result = {}
+    for list in list_of_skill_counts:
+        skill = list["skill"]
+        count = list["count"]
+
+        # result[skill] = 0
+
+        # if skill not in result:
+        #     result[skill] = count
+        # else:
+        #     result[skill] += count
+        result[skill] = result.get(skill, 0) + count
+
+    return result
+
+def output_summary_to_csv(output_file: str, file_list: dict[str, int]):
+    with open(output_file, "w", encoding="utf-8") as file:
+        file.write("Skill,count\n")
+        for skill, count in file_list.items():
+            file.write(f"{skill}, {count}\n")
+    
+
 
 
 def load_skills(file_path: str)-> list[str]:
@@ -68,7 +91,7 @@ def output_results_to_csv(output_file: str, skills: dict[str, int]):
 
 def output_multi_files_to_csv(output_file: str, results: list[dict[str, int]])->None:
     with open(output_file, "w", encoding = "utf-8") as file:
-        file.write("file name, skill, count\n")
+        file.write("file,skill,count\n")
         for result in results:
             file.write(f"{result['file']}, {result['skill']}, {result['count']}\n")
 
@@ -90,11 +113,16 @@ def main() -> None:
         output_file = arg.output or "skills_summary.csv"
         result = analyze_job_files(str(arg_input), skills)
         output_multi_files_to_csv(output_file, result)
+        summary = summurize_skill_counts(result)
+        output_summary_to_csv("skills_totals.csv", summary)
         print(f"Skill counts have been wriiten to {output_file}")
+        print(f"Skill totals have been written to skills_totals.csv")
         # results = analyze_job_files(sys.argv[1], skills)
         # output_multi_files_to_csv("skills_summary.csv", results)
         # print("Skill counts have been written to skills_summary.csv")
         return
+    
+    
 
     # file_path = sys.argv[1]
 
